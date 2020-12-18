@@ -1,32 +1,50 @@
 <?php
 
-    if($_SERVER['REQUEST_METHOD']=='POST') {
+        if($_SERVER['REQUEST_METHOD']=='POST') {
 
-        require 'connect.php';
+            require 'connect.php';
 
-        $Data = array(
-            'username' =>  $_POST['username'],
-            'password'  =>  $_POST['password']
-        );
-			
-		$login = "SELECT * FROM Users,UsersContactDetails,LoginCredentials WHERE Users.ID = UsersContactDetails.ID AND  Users.ID = LoginCredentials.ID AND UsersContactDetails.EMAIL = '$Data[username]'";
-
-        $response = mysqli_query($conn, $login);
+            $Data = array(
+                'email' =>  $_POST['email'],
+                'password'  =>  $_POST['password'],
+                'remember'  =>  $_POST['i-remember']
+            );
             
-            if (mysqli_num_rows($response) === 1 ) {
+			$login = "SELECT * FROM Users,UsersContactDetails,LoginCredentials WHERE Users.ID = UsersContactDetails.ID AND  Users.ID = LoginCredentials.ID AND UsersContactDetails.EMAIL = '$Data[email]'";
+
+            $response = mysqli_query($conn, $login);
+            
+                if (mysqli_num_rows($response) === 1 ) {
                     
-                $row = mysqli_fetch_assoc($response);
+                    $row = mysqli_fetch_assoc($response);
 
-                if ( password_verify( $Data['password'] , $row['PASSWD']) ) {
+                    if ( password_verify( $Data['password'] , $row['PASSWD']) ) {
 
-                    $result['firstname'] = $row['FirstName'];
+                        $result['firstname'] = $row['FirstName'];
 
-                    echo "Καλησπέρα ";
-                    echo $result['firstname'];
+                        echo "Καλησπέρα ";
                         
-                    //echo json_encode($result);
+                        echo $result['firstname'];
+                        
+                        //echo json_encode($result);
 
-                    mysqli_close($conn);
+                        mysqli_close($conn);
+
+                        if ($_POST['i-remember'] === "on") {
+
+                            session_start();
+
+                            $_SESSION['email'] = $result['firstname'];
+
+                        }
+
+                    ?>
+
+                        <script type="text/javascript">
+                            location.href = 'arxikh.php';
+                        </script>
+
+                    <?php
 
                     } else {
 
@@ -44,6 +62,6 @@
 
                 }
   
-    }
+        }
 
 ?>
