@@ -23,7 +23,7 @@
 
         <div id="Login" class="Login">
             <div class="d-flex justify-content-center align-items-center login-container">
-                <form class="login-form text-center" action="Assets/PHP/login.php" method="POST">
+                <form class="login-form text-center" action="login.php" method="POST">
                     <h1 class="logo mb-5 font-weight-light">TeeLayLay</h1>
                     <div class="form-group">
                         <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email" autocomplete="off" required>
@@ -48,9 +48,9 @@
 
         <div id="Register" class="Register">
             <div class="d-flex justify-content-center align-items-center login-container">
-                <form class="login-form text-center" action="Assets/PHP/register.php" method="POST">
-                    <h1 class="logo mb-5 font-weight-light">TeeLayLay</h1>
-                    <p>NA fas ta skata san na min yparxei avrio</p>
+                <form class="login-form text-center" action="register.php" method="POST">
+                    <h1 class="logo mb-3 font-weight-light">TeeLayLay</h1>
+                    <p>Insert a spiritual message here</p>
                     <div class="form-group">
                         <input name="firstname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Firstname" autocomplete="off" required>
                     </div>

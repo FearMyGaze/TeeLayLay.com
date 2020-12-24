@@ -1,0 +1,83 @@
+/* Global */
+@import url("https://fonts.googleapis.com/css2?family=Langar&display=swap%27");
+
+body {
+  font-size: 16px;
+  background: rgb(250, 250, 250);
+}
+
+/* Navbar BEGIN */
+
+.nav {
+  background-color: #723dbe;
+}
+
+.AppLogo {
+  font-family: "Langar", sans-serif;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #723dbe; /* Change of color*/
+}
+
+/* Navbar END */
+
+/* Profile options BEGIN */
+
+.profile-container {
+  height: 100vh;
+  width: 100%;
+}
+
+.profile-form {
+  max-width: 100%;
+  width: 370px;
+  padding: 15px;
+  margin: auto;
+}
+
+.profile-form .form-control {
+  font-size: 15px;
+  min-height: 48px;
+  font-weight: 500;
+}
+
+.profile-form a {
+  text-decoration: none;
+  color: #666;
+}
+
+.profile-form a:hover {
+  color: #723dbe;
+}
+.profile-form .last {
+  font-size: 16px;
+}
+
+.form-control:focus {
+  border-color: #723dbe;
+  box-shadow: 0 0 0 0.2rem rgba(114, 61, 190, 0.25);
+}
+
+.btn-custom {
+  background: #723dbe;
+  border-color: #723dbe;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 48px;
+}
+
+.btn-custom:focus,
+.btn-custom:hover,
+.btn-custom:active,
+.btn-custom:active:focus {
+  background: #54229d;
+  border-color: #54229d;
+  color: #fff;
+}
+
+/* Profile options END */
