@@ -12,7 +12,7 @@
             } else {
                 if (ctype_xdigit($selector) !== false && ctype_xdigit($validator) !== false) {
                 ?>
-                    <form action="updatePwd.php" method="POST">
+                    <form action="update-password.php" method="POST">
                         <input type="hidden" name="selector" value="<?php  echo $selector;?>"></input>
                         <input type="hidden" name="validator" value="<?php  echo $validator;?>"></input>
                         <input type="password" name="password" placeholder="insert your password"></input>

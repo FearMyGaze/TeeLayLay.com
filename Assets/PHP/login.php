@@ -30,21 +30,6 @@
 
                         mysqli_close($conn);
 
-                        if ($_POST['i-remember'] === "on") {
-
-                            session_start();
-
-                            $_SESSION['email'] = $result['firstname'];
-
-                        }
-
-                    ?>
-
-                        <script type="text/javascript">
-                            location.href = 'arxikh.php';
-                        </script>
-
-                    <?php
 
                     } else {
 

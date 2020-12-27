@@ -1,4 +1,6 @@
-<?php include 'redirectifloggedin.php';?>
+<?php 
+	include './Assets/PHP/redirect.php';
+?>
 <!DOCTYPE html>
 <html>
 
@@ -23,7 +25,7 @@
 
         <div id="Login" class="Login">
             <div class="d-flex justify-content-center align-items-center login-container">
-                <form class="login-form text-center" action="login.php" method="POST">
+                <form class="login-form text-center" action="./Assets/PHP/login.php" method="POST">
                     <h1 class="logo mb-5 font-weight-light">TeeLayLay</h1>
                     <div class="form-group">
                         <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email" autocomplete="off" required>
@@ -36,7 +38,7 @@
                             <input name="i-remember" type="checkbox" class="form-check-input" id="remember">
                             <label class="form-check-label font-weight-light" for="remember">Remember Password</label>
                         </div>
-                        <a href="ForgotPasswd.php">Forgot Password?</a>
+                        <a href="./Assets/PHP/reset-password.php">Forgot Password?</a>
                     </div>
                     <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button>
                     <p class="last mt-3 font-weight-normal">Don't have an account? <a href="javascript:on()"><strong>Register Now</strong></a></p>
@@ -48,8 +50,8 @@
 
         <div id="Register" class="Register">
             <div class="d-flex justify-content-center align-items-center login-container">
-                <form class="login-form text-center" action="register.php" method="POST">
-                    <h1 class="logo mb-3 font-weight-light">TeeLayLay</h1>
+                <form class="login-form text-center" action="./Assets/PHP/register.php" method="POST">
+                    <h1 class="logo mb-5 font-weight-light">TeeLayLay</h1>
                     <p>Insert a spiritual message here</p>
                     <div class="form-group">
                         <input name="firstname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Firstname" autocomplete="off" required>
@@ -100,6 +102,15 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+        <?php
+
+            if (isset($_GET["newpwd"])) {
+                if ($_GET["newpwd"]=="success") {
+                    echo '<p class="signupsuccess">O KWDIKOS ALLAXE!</p>';
+                }
+            }
+        
+        ?>
     </body>
 
 </html>
