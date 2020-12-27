@@ -18,3 +18,13 @@ body{
 
 
 /* Navbar END */
+
+/* Card BEGIN */
+
+.card .border{
+    border-color: #723dbe !important;
+    border-width: 3px !important;
+}
+
+
+/* Card END */

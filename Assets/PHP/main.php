@@ -2,7 +2,6 @@
 
 
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -52,27 +51,20 @@
                     </div>
                 </li>
             </ul>
-            <form class="form-inline">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">@</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-            </form>
         </div>
     </nav>
     <!-- END Navigation Bar -->
 
 
     <!-- BEGIN Posts -->
-
-    <div class="Posts">
-        <div class="card" style="width: 18rem;">
-
+    <div class="card mt-5">
+        <div class="border rounded">
+            <div id="username" class="card-header">Featured</div>
+                <div class="card-body">
+                    <p id="usertext" class="card-text">This is a sample text.</p>
+                </div>
         </div>
     </div>
-
     <!-- END Posts-->
 
 
