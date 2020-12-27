@@ -13,39 +13,35 @@ h1{
     font-family: 'Langar',sans-serif;
 }
 
-.Register{
-    display: none;
-}
+/* Register */
 
-/* Login */
-
-.login-container{
+.forgot-container{
     height: 100vh;
     width: 100%;
 }
 
-.login-form{
+.forgot-form{
     max-width: 100%;
     width: 370px;
     padding: 15px;
     margin: auto;
 }
 
-.login-form .form-control{
+.forgot-form .form-control{
     font-size: 15px;
     min-height: 48px;
     font-weight: 500;
 }
 
-.login-form a{
+.forgot-form a{
     text-decoration: none;
     color:#666;
 }
 
-.login-form a:hover{
+.forgot-form a:hover{
     color:#723dbe;
 }
-.login-form .last{
+.forgot-form .last{
     font-size: 16px;
 }
 
