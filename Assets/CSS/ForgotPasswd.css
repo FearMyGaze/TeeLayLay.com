@@ -71,3 +71,16 @@ h1{
   border-color: #54229d;
   color:#fff;
 }
+
+/* Alert BEGIN */
+
+.alert a{
+    text-decoration: none;
+    color:#666;
+}
+.alert a:hover{
+    color:#723dbe;
+}
+.alert p{
+    font-size: 16px;
+}
