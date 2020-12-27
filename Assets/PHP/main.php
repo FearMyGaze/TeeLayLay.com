@@ -17,7 +17,7 @@
     <!-- Font Awsome 5.15.1 -->
     <script src="https://kit.fontawesome.com/8632620e61.js" crossorigin="anonymous"></script>
     <!-- My Css -->
-    <link rel="stylesheet" href="Assets/CSS/MainStyle.css">
+    <link rel="stylesheet" href="../CSS/MainStyle.css">
     <!-- Under here import the scripts we created-->
 
 
