@@ -81,7 +81,7 @@ if (isset($_POST["submit"])) {
                             } else {
                                 mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                                 mysqli_stmt_execute($stmt);
-                                header("Location: index.php");
+                                header("Location: ../../index.php");
                                 echo "o kwdikos allaxe!";
                             }
                         }
@@ -95,5 +95,5 @@ if (isset($_POST["submit"])) {
     }
 
 } else {
-    header("index.php");
+    header("../../index.php");
 }

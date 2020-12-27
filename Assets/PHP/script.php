@@ -6,7 +6,7 @@ if(isset($_POST["email"])) {
 
     $token = random_bytes(32);
 
-    $url = "teelaylay.com/create-new-password.php?selector=" . $selector . "&validator=" . bin2hex($token);
+    $url = "https://teelaylay.com/Assets/PHP/create-new-password.php?selector=" . $selector . "&validator=" . bin2hex($token);
 
 
     $expires = date("U") + 1800;//U FORMAT EINAI GENIKO WORLDWIDE FORMAT POY XRHSIMOPOIEITAI GIA TON PROSDIORISMO THS WRAS TH STIGMH POY KALEITAI +1800 SECS PROFANWS GIA TO POTE THA LHXEI TO LINK
@@ -47,15 +47,15 @@ if(isset($_POST["email"])) {
 
     $subject = 'kane reset ton kwdiko s';
 
-    $message = 'lavame request anakthshs kwdikou opote kane click sto link an ontws pathses kati tetoio diaforetika to link tha lhxei se mish wra ' .  $url;
+    $message = 'Λάβαμε αίτημα επαναφοράς κωδικού πρόσβασης από εσάς, μπορείτε να αγνοήσετε το μήνυμα ή να κάνετε click στον σύνδεσμο που ακολουθεί για να επαναφέρετε τον κωδικό σας -> ' .  $url . ' (ο οποίος έχει ισχύ 30 λεπτά).';
 
     $headers = "From: info@teelaylay.com" . "\r\n";
 
     mail($to,$subject,$message,$headers);
 
-    header("Location: resetpassword.php?reset=success");
+    header("Location: reset-password.php?reset=success");
     
 
 } else {
-    header("Location: index.php");
+    header("Location: ../../index.php");
 }
