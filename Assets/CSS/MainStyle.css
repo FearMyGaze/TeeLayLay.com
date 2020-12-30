@@ -19,12 +19,50 @@ body{
 
 /* Navbar END */
 
-/* Card BEGIN */
+/* Cards BEGIN */
 
 .card .border{
     border-color: #723dbe !important;
     border-width: 3px !important;
 }
 
+.post-text {
+    resize: none; 
+    min-width: 50%; 
+    padding:14px;
+}
 
-/* Card END */
+.user-create:focus {
+    outline: none !important;
+    border-color:#723dbe;
+    box-shadow: 0 0 0 0.2rem rgba(114,61,190,.25);
+}
+
+.new, 
+.new:focus,
+.new:active,
+.new:active:focus{
+    outline: none;
+    border-color: Transparent; 
+    overflow: auto;
+}
+
+.btn-custom{
+    background: #723dbe;
+    border-color:#723dbe;
+    color:#fff;
+    font-size: 15px;
+    font-weight: 600;
+    min-height: 48px;
+    min-width: 68px;
+}
+
+.btn-custom:focus,
+.btn-custom:hover,
+.btn-custom:active,
+.btn-custom:active:focus{
+  background: #54229d;
+  border-color: #54229d;
+  color:#fff;
+}
+/* Cards END  background: #54229d;*/
