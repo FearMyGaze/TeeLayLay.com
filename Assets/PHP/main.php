@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 <!DOCTYPE html>
 <html>
 
@@ -33,20 +29,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a id="homepage" class="nav-link fas fa-home mt-1 selected" href="#">Home</a>
+                        <a id="homepage" class="nav-link fas fa-home mt-1 active" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a id="inbox-page" class="nav-link fas fa-inbox mt-1" href="#">Inbox</a>
+                        <a id="inbox-page" class="nav-link fas fa-inbox mt-1" href="inbox.php">Inbox</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user mt-1">User</i>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a id="user-profile" class="dropdown-item text-center" href="Profile.php">Profile settings</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a id="user-profile" class="dropdown-item text-center" href="Profile.php">Profile</a>
                             <a class="dropdown-item text-center" href="#">Another action</a>
                             <div class="dropdown-divider text-center"></div>
-                            <a id="user-logout" class="dropdown-item text-center" href="#">Log out</a>
+                            <a id="user-logout" class="dropdown-item text-center" href="logout.php">Log out</a>
                         </div>
                     </li>
                 </ul>
@@ -69,11 +65,11 @@
                     <div class="border rounded">
                         <div class="card-header text-center"><h3>Update your status</h3></div>
                         <div class="card-body">
-                            <form class="" action="#" method="POST">
+                            <form class="" action="create-new-post.php" method="POST">
                                 <div class="form-group">
-                                    <textarea name="user-post" class="user-create post-text card-text" cols="75" rows="2" maxlength="150" required> </textarea>
+                                    <textarea name="Content" class="user-create post-text card-text" cols="75" rows="2" maxlength="150" required> </textarea>
                                 </div>
-                                <button class="btn rounded-pill btn-custom" type="button">Post</button>
+                                <button class="btn rounded-pill btn-custom" type="submit">Post</button>
                             </form>
                         </div>
                     </div>
@@ -81,23 +77,53 @@
             </div>
         </div>
         <!-- END New post creation -->
+<?php
 
-        <!-- BEGIN Posts -->
-        <div class="post-area">
-            <div class="col d-flex justify-content-center">
-                <div class="card mt-4">
-                    <div class="border rounded">
-                    <div id="username" class="card-header">Obi two kenobi</div>
-                        <div class="card-body">
-                            <textarea id="usertext" name="user-post" class=" new post-text card-text" cols="75" rows="2" maxlength="150" required readonly>With supporting text below as a natural lead-in to additional content.</textarea>
+        require 'connect.php';
+
+        mysqli_set_charset($conn, "utf8");
+
+        $sql= "SELECT FirstName,LastName,Content,UserID,CreationDate FROM Posts,Users WHERE Users.ID = Posts.UserID ORDER BY CreationDate DESC";
+
+        $result = mysqli_query($conn,$sql);
+
+        if(mysqli_num_rows($result) > 0){
+
+            while($row = mysqli_fetch_assoc($result)){
+
+            ?>
+
+            <!-- BEGIN Posts -->
+            <div class="post-area">
+                <div class="col d-flex justify-content-center">
+                    <div class="card mt-4">
+                        <div class="border rounded">
+                        <div id="username" class="card-header"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></div>
+                            <div class="card-body">
+                                <textarea id="usertext" name="content" class=" new post-text card-text" cols="75" rows="2" maxlength="150" required readonly><?php echo  $row['Content'];?></textarea>
+                            </div>
+                            <div id="post-created" class="card-footer text-muted"><?php echo $row['CreationDate']; ?></div>
                         </div>
-                        <div id="post-created" class="card-footer text-muted">2 days ago</div>
                     </div>
-                </div>
-            </div>     
-        </div>
-        <!-- END Posts-->
+                </div>     
+            </div>
+            <!-- END Posts-->
+            
+            <?php
+			}
+                
 
+            } else {
+            
+                echo "qifhsa";
+            
+            }
+
+            mysqli_close($conn);
+
+   ?>
+		
+		
         <!-- Bootstrap scripts Ver 4.5 -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

@@ -29,7 +29,7 @@
         ?>
             <div id="forgot" class="forgot">
                 <div class="d-flex justify-content-center align-items-center forgot-container">
-                    <form class="forgot-form text-center" action="updatePwd.php" method="POST">
+                    <form class="forgot-form text-center" action="update-password.php" method="POST">
                         <h1 class="logo mb-3 font-weight-light">TeeLayLay</h1>
                         <p> Create new password </p>
                         <div class="form-group">
@@ -38,7 +38,7 @@
                             <input name="password" type="password" class="form-control rounded-pill form-control-lg" placeholder="Password" autocomplete="off" required>
                             <input name="passwordrepeat" type="password" class="form-control mt-1 rounded-pill form-control-lg" placeholder="Repeat Password" autocomplete="off" required>
                         </div>
-                        <button type="submit" class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase">Send</button>
+                        <button name="submit" type="submit" class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase">Send</button>
                         <p class="last mt-3 font-weight-normal">Did you just remembered your password? <a href="../../index.php"><strong>Return to Login</strong></a></p>
                     </form>
                 </div>
