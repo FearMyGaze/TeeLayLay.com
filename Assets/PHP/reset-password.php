@@ -19,7 +19,7 @@
 
         <div id="forgot" class="forgot">
             <div class="d-flex justify-content-center align-items-center forgot-container">
-                <form class="forgot-form text-center" action="../PHP/login.php" method="POST">
+                <form class="forgot-form text-center" action="../PHP/script.php" method="POST">
                     <h1 class="logo mb-5 font-weight-light">TeeLayLay</h1>
                     <div class="form-group">
                         <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email address" autocomplete="off" required>

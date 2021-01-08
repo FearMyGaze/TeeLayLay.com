@@ -5,8 +5,8 @@ body {
   font-size: 16px;
   background: rgb(250, 250, 250);
 }
-/* BEGIN Navbar */
 
+/* Navbar BEGIN */
 .AppLogo {
   font-family: "Langar", sans-serif;
   color: #ffc107 !important;
@@ -37,30 +37,23 @@ body {
   color: #dba90d !important;
 }
 
-/* END Navbar */
+/* Navbar END */
 
-/* BEGIN Form */
+/* BEGIN Message List */
 
-.profile-container {
-  height: 100vh;
-  width: 100%;
+.border-color{
+  outline: 2px solid #ffc107;
 }
 
-.profile-form {
-  max-width: 100%;
-  width: 370px;
-  padding: 15px;
-  margin: auto;
-}
+/* END Message List*/
 
-.profile-form .form-control {
-  font-size: 15px;
-  min-height: 48px;
-  font-weight: 500;
-}
+/* BEGIN DM & Write Message */
 
-.form-control:focus {
+.el-pepe{
+  border-color: #dba90d;
+}
+.el-pepe:focus {
   border-color: #ffc107;
   box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
 }
-/* END Form */
+/* END DM & Write Message */

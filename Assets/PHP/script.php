@@ -54,7 +54,8 @@ if(isset($_POST["email"])) {
     mail($to,$subject,$message,$headers);
 
     header("Location: reset-password.php?reset=success");
-    
+    header("Location: ../../index.php");
+	
 
 } else {
     header("Location: ../../index.php");

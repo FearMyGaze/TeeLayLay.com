@@ -22,11 +22,10 @@
     <body>
 
         <!-- Login Form -->
-
         <div id="Login" class="Login">
             <div class="d-flex justify-content-center align-items-center login-container">
                 <form class="login-form text-center" action="./Assets/PHP/login.php" method="POST">
-                    <h1 class="logo mb-5 font-weight-light">TeeLayLay</h1>
+                    <h1 class="logo mb-3 font-weight-light">TeeLayLay</h1>
                     <div class="form-group">
                         <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email" autocomplete="off" required>
                     </div>
@@ -40,21 +39,20 @@
                         </div>
                         <a href="./Assets/PHP/reset-password.php">Forgot Password?</a>
                     </div>
-                    <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Log in</button>
+                    <button type="submit" class="btn btn-warning mt-3 rounded-pill btn-lg btn-block">Log in</button>
                     <p class="last mt-3 font-weight-normal">Don't have an account? <a href="javascript:on()"><strong>Register Now</strong></a></p>
                 </form>
             </div>
         </div>
 
         <!-- Register Form -->
-
         <div id="Register" class="Register">
             <div class="d-flex justify-content-center align-items-center login-container">
                 <form class="login-form text-center" action="./Assets/PHP/register.php" method="POST">
-                    <h1 class="logo mb-5 font-weight-light">TeeLayLay</h1>
+                    <h1 class="logo mb-3 font-weight-light">TeeLayLay</h1>
                     <p>Insert a spiritual message here</p>
                     <div class="form-group">
-                        <input name="firstname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Firstname" autocomplete="off" required>
+                        <input name="firstname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Firstname" autocomplete="off" required >
                     </div>
                     <div class="form-group">
                         <input name="lastname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Lastname" autocomplete="off" required>
@@ -91,7 +89,7 @@
                             <label class="form-check-label font-weight-light" for="terms">Agre to terms and conditions</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn mt-5 rounded-pill btn-lg btn-custom btn-block text-uppercase">Register</button>
+                    <button type="submit" class="btn btn-warning mt-3 rounded-pill btn-lg btn-block">Register</button>
                     <p class="last mt-3 font-weight-normal">Have an account? <a href="javascript:off()"><strong>Login Now</strong></a></p>
                 </form>
     

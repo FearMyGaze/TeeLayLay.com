@@ -46,6 +46,8 @@
                     mysqli_query($conn, $query);
 
                     echo "Registration Succeed";
+					
+					header("Location: ../../index.php");
 
                 }
         } else {

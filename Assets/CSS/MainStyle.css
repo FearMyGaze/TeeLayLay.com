@@ -6,15 +6,48 @@ body{
     background: rgb(250, 250, 250);
 }
 
-/* Navbar BEGIN */
-
-.nav{
-    background-color: #723dbe;
-}
+/* BEGIN Navbar */
 
 .AppLogo{
     font-family: 'Langar',sans-serif;    
+    color: #ffc107 !important;
+}
+.AppLogo:hover{
+  color: #dba90d !important;
 }
 
+.nav-link{
+    color: #dba90d !important;
+}
+.nav-link:hover{
+    color: #ffc107 !important;
+}
+.log:hover{
+    color: red !important;
+}
+  
+.active{
+    color: #ffc107 !important;
+}
+.active:hover{
+    color: #dba90d !important;
+}
 
-/* Navbar END */
+/* END Navbar */
+
+/* BEGIN  Cards*/
+
+.card .border{
+    outline-style: none !important;
+    border: 2px solid #dba90d !important;
+}
+
+.el-pepe{
+    border-color: #dba90d;
+  }
+
+.el-pepe:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+/* END Cards*/

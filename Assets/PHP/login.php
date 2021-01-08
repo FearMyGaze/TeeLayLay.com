@@ -19,17 +19,28 @@
                     $row = mysqli_fetch_assoc($response);
 
                     if ( password_verify( $Data['password'] , $row['PASSWD']) ) {
+						
+						$email = $row['EMAIL'];
+						
+                        if ($_POST['i-remember'] === "on") {
 
-                        $result['firstname'] = $row['FirstName'];
+                            session_start();
 
-                        echo "Καλησπέρα ";
-                        
-                        echo $result['firstname'];
-                        
+                            $_SESSION['RememberMe'] = $email;
+							
+							header("Location: redirect.php");
+
+                        }
+						
+						mysqli_close($conn);
+						
+						session_start();
+
+                        $_SESSION['Email'] = $email;
+						
+						header("Location: main.php");
+						
                         //echo json_encode($result);
-
-                        mysqli_close($conn);
-
 
                     } else {
 

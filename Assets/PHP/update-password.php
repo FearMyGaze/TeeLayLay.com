@@ -95,5 +95,5 @@ if (isset($_POST["submit"])) {
     }
 
 } else {
-    header("../../index.php");
+    header("Location: ../../index.php");
 }
