@@ -21,39 +21,34 @@
     <body>
 
         <!-- BEGIN Navigation Bar -->
-        <nav class="nav navbar sticky-top navbar-expand-lg navbar-dark">
-            <a class="AppLogo navbar-brand" href="#">TeeLayLay</a>
+        <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">
+            <a class="AppLogo navbar-brand" href="main.php">TeeLayLay</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a id="homepage" class="nav-link fas fa-home mt-1 active" href="#">Home</a>
-                    </li>
+                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a id="inbox-page" class="nav-link fas fa-inbox mt-1" href="inbox.php">Inbox</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user mt-1">User</i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a id="user-profile" class="dropdown-item text-center" href="Profile.php">Profile</a>
-                            <a class="dropdown-item text-center" href="#">Another action</a>
-                            <div class="dropdown-divider text-center"></div>
-                            <a id="user-logout" class="dropdown-item text-center" href="logout.php">Log out</a>
-                        </div>
+                        <form class="form-inline my-2 my-lg-0" action="" method="POST">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </li>
                 </ul>
-                <form class="form-inline">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-                </form>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a id="homepage" class="nav-link fas fa-home mt-1 active" href="main.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="homepage" class="nav-link fas fa-inbox mt-1" href="inbox.php">Inbox</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="user-profile" class="nav-link fas fa-user mt-1" href="profile.php">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="user-profile" class="nav-link log fas fa-sign-out-alt mt-1" href="logout.php">Logout</a>
+                    </li>
+                </ul>
             </div>
         </nav>
         <!-- END Navigation Bar -->
@@ -61,15 +56,15 @@
         <!-- BEGIN New post creation -->
         <div class="new-post-area">
             <div class="col d-flex justify-content-center">
-                <div class="card mt-3">
+                <div class="card mt-3" style="width: 40rem;">
                     <div class="border rounded">
                         <div class="card-header text-center"><h3>Update your status</h3></div>
                         <div class="card-body">
                             <form class="" action="create-new-post.php" method="POST">
                                 <div class="form-group">
-                                    <textarea name="Content" class="user-create post-text card-text" cols="75" rows="2" maxlength="150" required> </textarea>
+                                    <textarea name="Content" class="el-pepe form-control" cols="75" rows="2" maxlength="150" required style="resize: none;"></textarea>
                                 </div>
-                                <button class="btn rounded-pill btn-custom" type="submit">Post</button>
+                                <button class="btn btn-warning mt-3 rounded-pill" type="submit">Post</button>
                             </form>
                         </div>
                     </div>
@@ -77,7 +72,7 @@
             </div>
         </div>
         <!-- END New post creation -->
-<?php
+        <?php
 
         require 'connect.php';
 
@@ -91,23 +86,23 @@
 
             while($row = mysqli_fetch_assoc($result)){
 
-            ?>
+        ?>
 
-            <!-- BEGIN Posts -->
-            <div class="post-area">
-                <div class="col d-flex justify-content-center">
-                    <div class="card mt-4">
-                        <div class="border rounded">
+        <!-- BEGIN Posts -->
+        <div class="post-area">
+            <div class="col d-flex justify-content-center">
+                <div class="card mt-4 " style="width: 40rem;">
+                    <div class="border rounded">
                         <div id="username" class="card-header"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></div>
-                            <div class="card-body">
-                                <textarea id="usertext" name="content" class=" new post-text card-text" cols="75" rows="2" maxlength="150" required readonly><?php echo  $row['Content'];?></textarea>
-                            </div>
-                            <div id="post-created" class="card-footer text-muted"><?php echo $row['CreationDate']; ?></div>
+                        <div class="card-body">
+                            <p class="card-text"><?php echo  $row['Content']; ?></p>
                         </div>
+                        <div id="post-created" class="card-footer text-muted"><?php echo $row['CreationDate']; ?></div>
                     </div>
-                </div>     
+                </div>
             </div>
-            <!-- END Posts-->
+        </div>
+        <!-- END Posts-->
             
             <?php
 			}

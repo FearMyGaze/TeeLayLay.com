@@ -6,63 +6,48 @@ body{
     background: rgb(250, 250, 250);
 }
 
-/* Navbar BEGIN */
-
-.nav{
-    background-color: #723dbe;
-}
+/* BEGIN Navbar */
 
 .AppLogo{
     font-family: 'Langar',sans-serif;    
+    color: #ffc107 !important;
+}
+.AppLogo:hover{
+  color: #dba90d !important;
 }
 
+.nav-link{
+    color: #dba90d !important;
+}
+.nav-link:hover{
+    color: #ffc107 !important;
+}
+.log:hover{
+    color: red !important;
+}
+  
+.active{
+    color: #ffc107 !important;
+}
+.active:hover{
+    color: #dba90d !important;
+}
 
-/* Navbar END */
+/* END Navbar */
 
-/* Cards BEGIN */
+/* BEGIN  Cards*/
 
 .card .border{
-    border-color: #723dbe !important;
-    border-width: 3px !important;
+    outline-style: none !important;
+    border: 2px solid #dba90d !important;
 }
 
-.post-text {
-    resize: none; 
-    min-width: 50%; 
-    padding:14px;
-}
+.el-pepe{
+    border-color: #dba90d;
+  }
 
-.user-create:focus {
-    outline: none !important;
-    border-color:#723dbe;
-    box-shadow: 0 0 0 0.2rem rgba(114,61,190,.25);
+.el-pepe:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
 }
-
-.new, 
-.new:focus,
-.new:active,
-.new:active:focus{
-    outline: none;
-    border-color: Transparent; 
-    overflow: auto;
-}
-
-.btn-custom{
-    background: #723dbe;
-    border-color:#723dbe;
-    color:#fff;
-    font-size: 15px;
-    font-weight: 600;
-    min-height: 48px;
-    min-width: 68px;
-}
-
-.btn-custom:focus,
-.btn-custom:hover,
-.btn-custom:active,
-.btn-custom:active:focus{
-  background: #54229d;
-  border-color: #54229d;
-  color:#fff;
-}
-/* Cards END  background: #54229d;*/
+/* END Cards*/

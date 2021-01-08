@@ -1,8 +1,3 @@
-<?php
-
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -17,7 +12,7 @@
     <!-- Font Awsome 5.15.1 -->
     <script src="https://kit.fontawesome.com/8632620e61.js" crossorigin="anonymous"></script>
     <!-- My Css -->
-    <link rel="stylesheet" href="Assets/CSS/Profile.css">
+    <link rel="stylesheet" href="../CSS/Profile.css">
     <!-- Under here import the scripts we created-->
 
 
@@ -27,39 +22,26 @@
 <body>
 
     <!-- BEGIN Navigation Bar -->
-    <nav class="nav navbar sticky-top navbar-expand-lg navbar-dark">
-        <a class="AppLogo navbar-brand" href="#">TeeLayLay</a>
+    <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">
+        <a class="AppLogo navbar-brand" href="main.php">TeeLayLay</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a id="homepage" class="nav-link fas fa-home mt-1 selected" href="#">Home</a>
+                    <a id="homepage" class="nav-link fas fa-home mt-1" href="main.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a id="inbox-page" class="nav-link fas fa-inbox mt-1" href="#">Inbox</a>
+                    <a id="homepage" class="nav-link fas fa-inbox mt-1" href="inbox.php">Inbox</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user mt-1">User</i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a id="user-profile" class="dropdown-item text-center active" href="#">Profile</a>
-                        <a class="dropdown-item text-center" href="#">Another action</a>
-                        <div class="dropdown-divider text-center"></div>
-                        <a id="user-logout" class="dropdown-item text-center" href="#">Log out</a>
-                    </div>
+                <li class="nav-item">
+                    <a id="user-profile" class="nav-link fas fa-user mt-1 active" href="profile.php">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a id="user-profile" class="nav-link log fas fa-sign-out-alt mt-1" href="logout.php">Logout</a>
                 </li>
             </ul>
-            <form class="form-inline">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">@</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                </div>
-            </form>
         </div>
     </nav>
     <!-- END Navigation Bar -->
@@ -67,6 +49,13 @@
     <main id="profile" class="profile-settings">
         <div class="d-flex justify-content-center align-items-center profile-container">
             <form class="profile-form text-center" action="" method="POST">
+                <h1 class="logo mb-3  text-uppercase">Information</h1>
+                <div class="form-group">
+                    <input name="username" type="text" class="form-control rounded-pill form-control-lg" placeholder="Username" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email Address" autocomplete="off" required>
+                </div>
                 <div class="form-group">
                     <input name="firstname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Firstname" autocomplete="off" required>
                 </div>
@@ -77,15 +66,12 @@
                     <input name="password" type="password" class="form-control rounded-pill form-control-lg" placeholder="Password" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email Address" autocomplete="off" required>
-                </div>
-                <div class="form-group">
                     <input name="phone" type="tel" class="form-control rounded-pill form-control-lg" placeholder="Phone number" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <input name="city" type="text" class="form-control rounded-pill form-control-lg" placeholder="City" autocomplete="off" required>
                 </div>
-                <button type="submit" class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase">Update information</button>
+                <button type="submit" class="btn btn-warning mt-3 rounded-pill btn-lg btn-block">Update</button>
             </form>
         </div>
     </main>
