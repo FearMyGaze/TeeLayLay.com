@@ -11,6 +11,7 @@ body{
 
 h1{
     font-family: 'Langar',sans-serif;
+    cursor: default;
 }
 
 /* Register */
@@ -39,7 +40,7 @@ h1{
 }
 
 .forgot-form a:hover{
-    color:#723dbe;
+    color:#ffc107;
 }
 .forgot-form .last{
     font-size: 16px;
@@ -50,26 +51,8 @@ h1{
 }
   
 .form-control:focus{
-    border-color:#723dbe;
-    box-shadow: 0 0 0 0.2rem rgba(114,61,190,.25);
-}
-
-.btn-custom{
-    background: #723dbe;
-    border-color:#723dbe;
-    color:#fff;
-    font-size: 15px;
-    font-weight: 600;
-    min-height: 48px;
-}
-
-.btn-custom:focus,
-.btn-custom:hover,
-.btn-custom:active,
-.btn-custom:active:focus{
-  background: #54229d;
-  border-color: #54229d;
-  color:#fff;
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
 }
 
 /* Alert BEGIN */
@@ -79,7 +62,7 @@ h1{
     color:#666;
 }
 .alert a:hover{
-    color:#723dbe;
+    color:#ffc107;
 }
 .alert p{
     font-size: 16px;

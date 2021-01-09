@@ -79,14 +79,16 @@
 
             ?>
 		
-			<div class="col d-flex justify-content-center">
-        		<div class="card" style="width: 40rem;">
-            		<div class="card-body form-inline">
-                		<p class="card-text"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></p>
-                		<a href="#" class="btn rounded-pill btn-custom ml-auto">Follow</a>
-            		</div>
-        		</div>
-    		</div>
+            <div class="col d-flex justify-content-center">
+                <div class="card" style="width: 40rem;">
+                    <div class="border">
+                        <div class="card-body form-inline">
+                            <p class="card-text"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></p>
+                            <a href="#" class="btn btn-warning rounded-pill ml-auto">Follow</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		
 		 <?php
 				
