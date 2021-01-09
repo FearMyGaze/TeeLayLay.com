@@ -1,3 +1,9 @@
+<?php 
+	session_start();
+
+	$email = $_SESSION['Email'];
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +26,7 @@
 
     <body>
 
-        <!-- BEGIN Navigation Bar -->
+         <!-- BEGIN Navigation Bar -->
         <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">
             <a class="AppLogo navbar-brand" href="main.php">TeeLayLay</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,33 +58,18 @@
             </div>
         </nav>
         <!-- END Navigation Bar -->
-
-        <!-- BEGIN New post creation -->
-        <div class="new-post-area">
-            <div class="col d-flex justify-content-center">
-                <div class="card mt-3" style="width: 40rem;">
-                    <div class="border rounded">
-                        <div class="card-header text-center"><h3>Update your status</h3></div>
-                        <div class="card-body">
-                            <form class="" action="create-new-post.php" method="POST">
-                                <div class="form-group">
-                                    <textarea name="Content" class="el-pepe form-control" cols="75" rows="2" maxlength="150" required style="resize: none;"></textarea>
-                                </div>
-                                <button class="btn btn-warning mt-3 rounded-pill" type="submit">Post</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>  
-            </div>
-        </div>
-        <!-- END New post creation -->
-        <?php
+		
+		<?php
+				
+		if($_SERVER['REQUEST_METHOD'] =='POST' ){
+			
+		$uname = $_POST["username"];
 
         require 'connect.php';
 
         mysqli_set_charset($conn, "utf8");
 
-        $sql= "SELECT FirstName,LastName,Content,UserID,CreationDate FROM Posts,Users WHERE Users.ID = Posts.UserID ORDER BY CreationDate DESC";
+        $sql= "SELECT FirstName, LastName FROM Users,LoginCredentials,UsersContactDetails WHERE Users.ID = LoginCredentials.ID AND Users.ID = UsersContactDetails.ID AND LoginCredentials.Username = '$uname' AND UsersContactDetails.EMAIL <> '$email'";
 
         $result = mysqli_query($conn,$sql);
 
@@ -86,25 +77,19 @@
 
             while($row = mysqli_fetch_assoc($result)){
 
-        ?>
-
-        <!-- BEGIN Posts -->
-        <div class="post-area">
-            <div class="col d-flex justify-content-center">
-                <div class="card mt-4 " style="width: 40rem;">
-                    <div class="border rounded">
-                        <div id="username" class="card-header"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></div>
-                        <div class="card-body">
-                            <p class="card-text"><?php echo  $row['Content']; ?></p>
-                        </div>
-                        <div id="post-created" class="card-footer text-muted"><?php echo $row['CreationDate']; ?></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END Posts-->
-            
-            <?php
+            ?>
+		
+			<div class="col d-flex justify-content-center">
+        		<div class="card" style="width: 40rem;">
+            		<div class="card-body form-inline">
+                		<p class="card-text"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></p>
+                		<a href="#" class="btn rounded-pill btn-custom ml-auto">Follow</a>
+            		</div>
+        		</div>
+    		</div>
+		
+		 <?php
+				
 			}
                 
 
@@ -116,8 +101,8 @@
 
             mysqli_close($conn);
 
-   ?>
-		
+		}
+   		?>
 		
         <!-- Bootstrap scripts Ver 4.5 -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
