@@ -19,9 +19,10 @@
     <title>TeeLayLay</title>
 </head>
 
+
 <body>
 
-    <!-- BEGIN Navigation Bar -->
+ <!-- BEGIN Navigation Bar -->
     <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">
         <a class="AppLogo navbar-brand" href="main.php">TeeLayLay</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,36 +47,131 @@
     </nav>
     <!-- END Navigation Bar -->
 
+
+<?php
+
+    session_start();
+
+    $email = $_SESSION['Email'];
+	
+    require 'connect.php';
+
+    mysqli_set_charset($conn, "utf8");
+	
+	$sql = "SELECT * FROM Users,UsersContactDetails,LoginCredentials WHERE Users.ID = UsersContactDetails.ID AND Users.ID = LoginCredentials.ID AND EMAIL='$email'";
+
+    $response = mysqli_query($conn, $sql);
+
+    if(mysqli_num_rows($response) === 1) {
+
+       $row = mysqli_fetch_assoc($response);
+
+       $Data = array(
+            'username'     =>  $row["Username"],
+            'firstname'     =>  $row["FirstName"],
+            'lastname'      =>  $row["LastName"],
+            'email'         =>  $row["EMAIL"],
+            'birthday'      =>  $row["BirthDay"],
+            'city'          =>  $row["City"],
+            'phone'         =>  $row["Phone"]
+          );
+
+    } else {
+
+            ?>
+				<div class="alert alert-danger text-center"  role="alert">
+ 					Session is lost!
+				</div>
+			<?php
+
+    }
+	
+	
+	if($_SERVER['REQUEST_METHOD'] =='POST' ){
+
+           $fetchedData = array(
+                'username'      =>  $_POST["username"],
+                'firstname'     =>  $_POST["firstname"],
+                'lastname'      =>  $_POST["lastname"],
+                'email'         =>  $_POST["email"],
+                'password'      =>  password_hash($_POST["password"], PASSWORD_DEFAULT),
+                'city'          =>  $_POST["city"],
+                'phone'         =>  $_POST["phone"]
+          );
+                
+			
+				$sql1 = "SELECT * FROM Users,UsersContactDetails,LoginCredentials WHERE Users.ID = UsersContactDetails.ID AND Users.ID = LoginCredentials.ID AND EMAIL = '$fetchedData[email]'";
+
+    			$responseIfEmailExists = mysqli_query($conn, $sql1);
+	
+				$sql2 = "SELECT * FROM Users,UsersContactDetails,LoginCredentials WHERE Users.ID = UsersContactDetails.ID AND Users.ID = LoginCredentials.ID AND Username = '$fetchedData[username]'";
+
+    			$responseIfUsernameExists = mysqli_query($conn, $sql2);
+			
+				if(mysqli_num_rows($responseIfEmailExists) === 0) {
+					
+					if(mysqli_num_rows($responseIfUsernameExists) === 0) {
+						
+						$sql = "UPDATE Users,UsersContactDetails,LoginCredentials SET FirstName='$fetchedData[firstname]' , LastName='$fetchedData[lastname]' , EMAIL='$fetchedData[email]' , Username='$fetchedData[username]' , PASSWD='$fetchedData[password]' , City='$fetchedData[city]' , Phone='$fetchedData[phone]' WHERE Users.ID = UsersContactDetails.ID AND Users.ID = LoginCredentials.ID AND EMAIL='$email'";
+                
+                        mysqli_query($conn,$sql);
+						
+				        mysqli_close($conn);
+
+	           	        header('Location: logout.php');
+						
+					} else {
+						
+						?>
+							<div class="alert alert-danger text-center"  role="alert">
+ 								This username already exists!
+							</div>
+						<?php
+						mysqli_close($conn);
+					}
+
+				} else {
+						
+						?>
+						<div class="alert alert-danger text-center"  role="alert">
+ 							This email already exists!
+						</div>
+					<?php
+					mysqli_close($conn);
+				}
+
+        } 
+    ?>
+
     <main id="profile" class="profile-settings">
         <div class="d-flex justify-content-center align-items-center profile-container">
-            <form class="profile-form text-center" action="" method="POST">
+            <form class="profile-form text-center" action="profile.php" method="POST">
                 <h1 class="logo mb-3  text-uppercase">Information</h1>
                 <div class="form-group">
-                    <input name="username" type="text" class="form-control rounded-pill form-control-lg" placeholder="Username" autocomplete="off" required>
+                    <input name="username" value="<?php echo $Data['username']; ?>" type="text" class="form-control rounded-pill form-control-lg" placeholder="Username" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email Address" autocomplete="off" required>
+                    <input name="email" value="<?php echo $Data['email']; ?>" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email Address" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <input name="firstname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Firstname" autocomplete="off" required>
+                    <input name="firstname" value="<?php echo $Data['firstname']; ?>" type="text" class="form-control rounded-pill form-control-lg" placeholder="Firstname" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <input name="lastname" type="text" class="form-control rounded-pill form-control-lg" placeholder="Lastname" autocomplete="off" required>
+                    <input name="lastname" value="<?php echo $Data['lastname']; ?>" type="text" class="form-control rounded-pill form-control-lg" placeholder="Lastname" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <input name="password" type="password" class="form-control rounded-pill form-control-lg" placeholder="Password" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <input name="phone" type="tel" class="form-control rounded-pill form-control-lg" placeholder="Phone number" autocomplete="off" required>
+                    <input name="phone" value="<?php echo $Data['phone']; ?>" type="tel" class="form-control rounded-pill form-control-lg" placeholder="Phone number" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                    <input name="city" type="text" class="form-control rounded-pill form-control-lg" placeholder="City" autocomplete="off" required>
+                    <input name="city" value="<?php echo $Data['city']; ?>" type="text" class="form-control rounded-pill form-control-lg" placeholder="City" autocomplete="off" required>
                 </div>
                 <button type="submit" class="btn btn-warning mt-3 rounded-pill btn-lg btn-block">Update</button>
             </form>
         </div>
     </main>
-
 
 
     <!-- Bootstrap scripts Ver 4.5 -->

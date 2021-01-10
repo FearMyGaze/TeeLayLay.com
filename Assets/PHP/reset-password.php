@@ -16,7 +16,7 @@
     </head>
 
     <body>
-
+		
         <div id="forgot" class="forgot">
             <div class="d-flex justify-content-center align-items-center forgot-container">
                 <form class="forgot-form text-center" action="../PHP/script.php" method="POST">
@@ -39,12 +39,3 @@
 
 </html>
 
-<?php
-
-    if (isset($_GET["reset"])) {
-        if ($_GET["reset"]=="success") {
-            echo '<p class="signupsuccess">Check you email!</p>';
-        }
-    }
-
-?>

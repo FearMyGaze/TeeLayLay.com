@@ -17,9 +17,25 @@
     <body>
         
         <?php
+		
         $selector = $_GET["selector"];
         $validator = $_GET["validator"];
+		
+		session_start();
+		
+		$_SESSION['selector'] = $selector;
+		$_SESSION['validator'] = $validator;
 
+		   if (isset($_GET["pwdmatching"])) {
+       		if ($_GET["pwdmatching"]=="dontmatch") {
+				?>
+            	<div class="alert alert-danger text-center" role="alert">
+  					Passwords do not match!
+				</div>
+				<?php
+        	}
+    	 }
+		
         if (empty($selector) || empty($validator)) {
         ?>
         <p class="alert alert-danger d-flex justify-content-center align-items-center" role="alert">Couldn't validate your request! <a href="reset-password.php"><strong>Return back</strong></a></p>
@@ -38,7 +54,7 @@
                             <input name="password" type="password" class="form-control rounded-pill form-control-lg" placeholder="Password" autocomplete="off" required>
                             <input name="passwordrepeat" type="password" class="form-control mt-1 rounded-pill form-control-lg" placeholder="Repeat Password" autocomplete="off" required>
                         </div>
-                        <button name="submit" type="submit" class="btn mt-3 rounded-pill btn-lg btn-custom btn-block text-uppercase">Send</button>
+                        <button name="submit" type="submit" class="btn btn-warning mt-3 rounded-pill btn-lg btn-block">Send</button>
                         <p class="last mt-3 font-weight-normal">Did you just remembered your password? <a href="../../index.php"><strong>Return to Login</strong></a></p>
                     </form>
                 </div>
@@ -56,13 +72,3 @@
     </body>
 
 </html>
-
-<?php
-
-if (isset($_GET["reset"])) {
-    if ($_GET["reset"] == "success") {
-        echo '<p class="signupsuccess">Check you email!</p>';
-    }
-}
-
-?>

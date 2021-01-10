@@ -2,6 +2,7 @@
 	session_start();
 
 	$email = $_SESSION['Email'];
+
 ?>
 
 <!DOCTYPE html>
@@ -69,47 +70,68 @@
 
         mysqli_set_charset($conn, "utf8");
 
-        $sql= "SELECT FirstName, LastName FROM Users,LoginCredentials,UsersContactDetails WHERE Users.ID = LoginCredentials.ID AND Users.ID = UsersContactDetails.ID AND LoginCredentials.Username = '$uname' AND UsersContactDetails.EMAIL <> '$email'";
+        $sqlJustSearch= "SELECT FirstName, LastName FROM Users,LoginCredentials,UsersContactDetails WHERE Users.ID = LoginCredentials.ID AND Users.ID = UsersContactDetails.ID AND LoginCredentials.Username = '$uname' AND UsersContactDetails.EMAIL <> '$email'";
 
-        $result = mysqli_query($conn,$sql);
+		$sqlFollowing= "SELECT FirstName, LastName, Following FROM Users,Follows WHERE Users.ID = USER2 and Users.ID = USER2 AND USER1 = (SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = '$email') AND USER2 = (SELECT Users.ID FROM Users,LoginCredentials WHERE Users.ID = LoginCredentials.ID AND LoginCredentials.Username = '$uname') AND Following = 'yes'";
+			
+        $result1 = mysqli_query($conn,$sqlJustSearch);
+		$result2 = mysqli_query($conn,$sqlFollowing);
+		
+        if(mysqli_num_rows($result2) === 1){
 
-        if(mysqli_num_rows($result) > 0){
-
-            while($row = mysqli_fetch_assoc($result)){
-
+           $row = mysqli_fetch_assoc($result2);
+			$_SESSION['uname'] = $uname;
             ?>
 		
-            <div class="col d-flex justify-content-center">
+			<div class="col d-flex justify-content-center">
                 <div class="card" style="width: 40rem;">
                     <div class="border">
                         <div class="card-body form-inline">
                             <p class="card-text"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></p>
-                            <a href="#" class="btn btn-warning rounded-pill ml-auto">Follow</a>
+                            <a id="Unfollow" onclick="unfollow()" href="unfollow.php" class="btn btn-warning rounded-pill ml-auto">Unfollow</a>
                         </div>
                     </div>
                 </div>
             </div>
 		
-		 <?php
-				
-			}
-                
+		 	<?php
+		} else if(mysqli_num_rows($result1) === 1){
 
-            } else {
-            
-                echo "qifhsa";
-            
-            }
+        $row = mysqli_fetch_assoc($result1);
+		$_SESSION['uname'] = $uname;
+        ?>
+                <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 40rem;">
+                        <div class="border">
+                            <div class="card-body form-inline">
+                                <p class="card-text"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></p>
+                                <a id="Follow" onclick="follow()" href="follow.php" class="btn btn-warning rounded-pill ml-auto">follow</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <?php
+        }
 
-            mysqli_close($conn);
-
-		}
-   		?>
+		mysqli_close($conn);
+	}
+   	?>
 		
         <!-- Bootstrap scripts Ver 4.5 -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    
+        <script>
+            function follow() {
+                document.getElementById("Unfollow").textContent="Follow";
+            } 
+			
+			function unfollow() {
+                document.getElementById("follow").textContent="Unfollow";
+            } 
+			
+        </script>
     </body>
 
 </html>

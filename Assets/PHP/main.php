@@ -74,49 +74,58 @@
         <!-- END New post creation -->
         <?php
 
-        require 'connect.php';
+session_start();
 
-        mysqli_set_charset($conn, "utf8");
+$email = $_SESSION['Email'];
+    
+    require 'connect.php';
 
-        $sql= "SELECT FirstName,LastName,Content,UserID,CreationDate FROM Posts,Users WHERE Users.ID = Posts.UserID ORDER BY CreationDate DESC";
+    mysqli_set_charset($conn, "utf8");
 
-        $result = mysqli_query($conn,$sql);
+    $sql= "SELECT DISTINCT FirstName,LastName,CreationDate,Content FROM Users,Posts,Follows WHERE (Users.ID = Posts.UserID AND UserID =(SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = '$email')) OR ( Users.ID = Posts.UserID AND Follows.USER1 = (SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = '$email') AND Follows.USER2 = Users.ID AND Follows.Following = 'yes' )";
 
-        if(mysqli_num_rows($result) > 0){
+    $result = mysqli_query($conn,$sql);
 
-            while($row = mysqli_fetch_assoc($result)){
+    if(mysqli_num_rows($result) > 0){
+
+        while($row = mysqli_fetch_assoc($result)){
 
         ?>
 
-        <!-- BEGIN Posts -->
-        <div class="post-area">
-            <div class="col d-flex justify-content-center">
-                <div class="card mt-4 " style="width: 40rem;">
-                    <div class="border rounded">
-                        <div id="username" class="card-header"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></div>
-                        <div class="card-body">
-                            <p class="card-text"><?php echo  $row['Content']; ?></p>
-                        </div>
-                        <div id="post-created" class="card-footer text-muted"><?php echo $row['CreationDate']; ?></div>
+       <!-- BEGIN Posts -->
+    <div class="post-area">
+        <div class="col d-flex justify-content-center">
+            <div class="card mt-4 " style="width: 40rem;">
+                <div class="border rounded">
+                    <div id="username" class="card-header"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></div>
+                    <div class="card-body">
+                        <p class="card-text"><?php echo  $row['Content']; ?></p>
                     </div>
+                    <div id="post-created" class="card-footer text-muted"><?php echo $row['CreationDate']; ?></div>
                 </div>
             </div>
         </div>
-        <!-- END Posts-->
+    </div>
+    <!-- END Posts-->
+        
+        <?php
+        }
             
-            <?php
-			}
-                
 
-            } else {
-            
-                echo "qifhsa";
-            
-            }
+        } else {
+        
 
-            mysqli_close($conn);
+			?>
+			<div class="alert alert-light text-center" role="alert">
+  				There are no posts at the moment!
+			</div>
+			<?php
+        
+        }
 
-   ?>
+        mysqli_close($conn);
+
+?>
 		
 		
         <!-- Bootstrap scripts Ver 4.5 -->

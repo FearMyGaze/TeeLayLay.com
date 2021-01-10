@@ -7,11 +7,14 @@ if (isset($_POST["submit"])) {
     $password = $_POST["password"];
     $passwordrepeat = $_POST["passwordrepeat"];
 
-    if (empty($password) || empty($passwordrepeat)) {
-        echo "kena passwords!";
-    } else if ($password != $passwordrepeat) {
-        echo "anisothta passwords!";
-    }
+	session_start();
+		
+	$selectorSs = $_SESSION['selector'];
+	$validatorSs = $_SESSION['validator'];
+	
+    if ($password != $passwordrepeat) {
+       header("Location: create-new-password.php?pwdmatching=dontmatch&selector=" . $selectorSs . "&validator=" . $validatorSs);
+    } else {
     
     $currentDate = date("U");
 
@@ -22,7 +25,11 @@ if (isset($_POST["submit"])) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt,$sql)) {
-        echo "There was an error!1";
+        ?>
+			<div class="alert alert-danger text-center" role="alert">
+  				Error 500
+			</div>
+		<?php
         exit();
     } else {
         mysqli_stmt_bind_param($stmt, "ss", $selector, $currentDate);
@@ -39,7 +46,11 @@ if (isset($_POST["submit"])) {
             $tokenCheck = password_verify($tokenBin,$row["PwdResetToken"]);
 			echo !$tokenCheck ? 'false' : '';
             if ($tokenCheck === false) {
-                echo "resubmit your request2";
+                ?>
+				<div class="alert alert-danger text-center" role="alert">
+  					Error 501
+				</div>
+			<?php
             } elseif ($tokenCheck === true) {
 
                 $tokenEmail = $row["Email"];
@@ -49,7 +60,11 @@ if (isset($_POST["submit"])) {
                 $stmt = mysqli_stmt_init($conn);
 
                 if (!mysqli_stmt_prepare($stmt,$sql)) {
-                    echo "There was an error!2";
+                    ?>
+						<div class="alert alert-danger text-center" role="alert">
+  							Error 502
+						</div>
+					<?php
                     exit();
                 } else {
                     mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
@@ -57,14 +72,22 @@ if (isset($_POST["submit"])) {
                     $result = mysqli_stmt_get_result($stmt);
 
                     if(!$row = mysqli_fetch_assoc($result)) {
-                      echo "there was an error!3";
+                      ?>
+						<div class="alert alert-danger text-center" role="alert">
+  							Error 503
+						</div>
+					<?php
                     } else {
                         $sql = "UPDATE LoginCredentials SET PASSWD=? WHERE ID = (SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = LoginCredentials.ID AND Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = ?)";
 
                         $stmt = mysqli_stmt_init($conn);
 
                         if (!mysqli_stmt_prepare($stmt,$sql)) {
-                            echo "There was an error!4";
+                            ?>
+								<div class="alert alert-danger text-center" role="alert">
+  									Error 504
+								</div>
+							<?php
                             exit();
                         } else {
                             $newPwdHash = password_hash($password, PASSWORD_DEFAULT);
@@ -76,13 +99,16 @@ if (isset($_POST["submit"])) {
                             $stmt = mysqli_stmt_init($conn);
 
                             if (!mysqli_stmt_prepare($stmt,$deleteSQLstring)) {
-                                echo "There was an error!5";
+                                ?>
+									<div class="alert alert-danger text-center" role="alert">
+  										Error 505
+									</div>
+								<?php
                                 exit();
                             } else {
                                 mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                                 mysqli_stmt_execute($stmt);
-                                header("Location: ../../index.php");
-                                echo "o kwdikos allaxe!";
+                                header("Location: ../../index.php?pwdchanged=true");                   
                             }
                         }
 
@@ -91,9 +117,9 @@ if (isset($_POST["submit"])) {
 
             }
         }
-
+		
     }
-
+	}
 } else {
     header("Location: ../../index.php");
 }

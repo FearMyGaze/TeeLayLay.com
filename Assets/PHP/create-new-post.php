@@ -31,8 +31,8 @@
 			header("Location: main.php");
 			
 		} else {
-			
-            echo "qifsh1a";
+			echo "ee" . $email;
+            echo "Mysqli error!";
             mysqli_close($conn);
             
         }

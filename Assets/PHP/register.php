@@ -12,6 +12,7 @@
                 'firstname'     =>  $_POST["firstname"],
                 'lastname'      =>  $_POST["lastname"],
                 'email'         =>  $_POST["email"],
+				'username'      =>  $_POST["username"],
                 'password'      =>  password_hash($_POST["password"], PASSWORD_DEFAULT),
                 'sex'           =>  $_POST["sex"],
                 'birthday'      =>  $_POST["birthday"],
@@ -19,12 +20,20 @@
                 'phone'         =>  $_POST["phone"]
             );
 
-            //password_hash($_POST["password"], PASSWORD_DEFAULT)
-
             $checkForDublicateEmails = "SELECT * FROM UsersContactDetails WHERE EMAIL = '$Data[email]'";
 
+			$checkForDublicateUsernames = "SELECT * FROM LoginCredentials WHERE Username = '$Data[username]'";
+			
             $response = mysqli_query($conn, $checkForDublicateEmails);
+			
+			$response1 = mysqli_query($conn, $checkForDublicateUsernames);
+			
+			if(mysqli_num_rows($response1) === 1) {
 
+                    echo "This username belongs to another user.";
+				
+				} else {
+				
        	        if(mysqli_num_rows($response) === 1) {
 
                     echo "This email address belongs to another user.";
@@ -41,16 +50,17 @@
 
                     mysqli_query($conn, $query);
 
-                    $query = "INSERT INTO LoginCredentials(ID, PASSWD) VALUES ('$lastID', '$Data[password]')";
+                    $query = "INSERT INTO LoginCredentials(ID, PASSWD, Username) VALUES ('$lastID', '$Data[password]', '$Data[username]')";
 
                     mysqli_query($conn, $query);
-
-                    echo "Registration Succeed";
 					
 					header("Location: ../../index.php");
 
                 }
-        } else {
+			
+			}
+		
+		} else {
             echo "PASSWORD FIELDS DON'T MATCH!";
         }
             
