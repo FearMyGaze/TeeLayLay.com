@@ -1,6 +1,8 @@
 <?php
 
         if($_SERVER['REQUEST_METHOD']=='POST') {
+			
+			mysqli_set_charset($conn, "utf8");
 
             require 'connect.php';
 
@@ -10,7 +12,7 @@
                 'remember'  =>  $_POST['i-remember']
             );
             
-			$login = "SELECT * FROM Users,UsersContactDetails,LoginCredentials WHERE Users.ID = UsersContactDetails.ID AND  Users.ID = LoginCredentials.ID AND UsersContactDetails.EMAIL = '$Data[email]'";
+			$login = "SELECT * FROM Users,UsersContactDetails,LoginCredentials WHERE Users.ID = UsersContactDetails.ID AND Users.ID = LoginCredentials.ID AND UsersContactDetails.EMAIL = '$Data[email]'";
 
             $response = mysqli_query($conn, $login);
             
@@ -31,7 +33,7 @@
 							header("Location: redirect.php");
 
                         }
-						
+					
 						mysqli_close($conn);
 						
 						session_start();
@@ -40,22 +42,17 @@
 						
 						header("Location: main.php");
 						
-                        //echo json_encode($result);
+                        echo json_encode($result);
 
                     } else {
 
-                        echo "Credentials wrong or account does not exist!";
-
-                        mysqli_close($conn);
+                        header("Location: ../../index.php?login=no");
                         
                     }
                         
                 } else {
 
-                    echo "Credentials wrong or account does not exist!";
-
-                    mysqli_close($conn);
-
+                   header("Location: ../../index.php?login=no");
                 }
   
         }

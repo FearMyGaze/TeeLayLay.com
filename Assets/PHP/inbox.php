@@ -51,89 +51,91 @@
         </div>
     </nav>
     <!-- END Navigation Bar -->
-   
-    <div class="card">
-        <div class="card-body"> <!-- Grid row -->
 
-            <div class="row px-lg-2 px-2">  <!-- Grid column -->
-                
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 mt-2 left-side">
+                <ul class="list-unstyled">
+                    <!-- BEGIN Person DM'ed -->
 
-                <div class="col-md-6 col-xl-4 px-0"> <!-- Grid column -->
-                    
-                    <h6 class="font-weight-bold mb-3 text-center text-lg-left">Member</h6>
-                    <div class="z-depth-1 px-3 pt-3 pb-0">
-                        <ul class="list-unstyled">
-                            <!-- BEGIN Person DM'ed -->
-                            <li class="border-color p-2">
-                                <a href="#" class="d-flex test justify-content-between">
-                                    <div class="text-small">
-                                        <strong>John Doe</strong>
-                                        <p class="last-message text-muted">Hello, Are you there?</p>
-                                    </div>
-                                    <div class="chat-footer">
-                                        <p class="text-smaller text-muted mb-0">Just now</p>
-                                        <span class="text-muted float-right"><i class="fas fa-reply" aria-hidden="true"></i></span>
-                                    </div>
-                                </a>
-                            </li>
+                    <?php 
+								
+								
+        						require 'connect.php';
+
+        						mysqli_set_charset($conn, "utf8");
+							
+								session_start();
+								
+								$email = $_SESSION['Email'];
+
+                                $sql = "SELECT FirstName,LastName,Message,DateSent FROM Users,Messages WHERE Users.ID = Messages.FromUser AND Messages.ToUser = (SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = '$email') ORDER BY DateSent DESC ";
+
+                                $result = mysqli_query($conn,$sql);
+							
+								 if(mysqli_num_rows($result) > 0){
+
+                                    while($row = mysqli_fetch_assoc($result)){
+
+                            ?>
+                                <li class="border-color p-2 mt-2">
+                                    <a href="#" class="d-flex test justify-content-between">
+                                        <div class="text-small">
+                                            <strong><?php echo $row['FirstName'] . " " . $row['LastName']; ?></strong>
+                                            <p class="last-message text-muted"><?php echo $row['Message'];?></p>
+                                        </div>
+                                        <div class="chat-footer">
+                                            <p class="text-smaller text-muted mb-0"><?php echo $row['DateSent'];?></p>
+                                            <span class="text-muted float-right"><i class="fas fa-reply" aria-hidden="true"></i></span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                            <?php 
+									}
+									
+                                }
+								if (isset($_GET["user"])) {
+                					if ($_GET["user"]=="notfound") {
+										?>
+											<div class="alert alert-danger text-center"  role="alert">
+ 					 							User not found!
+											</div>
+										<?php
+                					}
+            					}
+
+                            ?>
                             <!-- END Person DM'ed -->
-                        </ul>
-                    </div>
 
-                </div>
-                <div class="col-md-6 col-xl-8 pl-md-3 px-lg-auto px-0"> <!-- Grid column -->
-                    <div class="chat-message">
-                        <ul class="list-unstyled chat">
-
-                            <!-- BEGIN Message block -->
-                            <li class="d-flex justify-content-between mb-4">
-                                <div class="p-3 ml-2 z-depth-1">
-                                    <div class="header">
-                                        <strong class="primary-font">Brad Pitt</strong>
-                                        <small class="pull-right text-muted"><i class="far fa-clock"></i> 12 mins ago</small>
-                                    </div>
-                                    <hr class="w-100">
-                                    <p class="mb-0">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </li>
-                            <!-- END Message block -->
-
-                            <!-- BEGIN Send message -->
-                            <li>
-                                <div class="form-group">
-                                    <textarea class="form-control el-pepe pl-2 my-0" id="message-text-area" rows="4" placeholder="Type your message here..." style="resize: none;" ></textarea>
-                                </div>
-                            </li>
-                            <button type="button" class="btn btn btn-warning btn-sm btn-rounded float-right">Send</button>
-                            <!-- END Send message -->
-                        </ul>
-
-                    </div>
-
-                </div>
-                <!-- Grid column -->
-
+                    <!-- PALI MESA STO UL KANEIS TO ENA KATO APO TO ALLO OPOS KAI PRIN  -->
+                </ul>
             </div>
-            <!-- Grid row -->
-
+            <div class="col-md-7 col-sm-5">
+                <!-- BEGIN Messages -->
+                <div class="card border-warning mt-3">
+                    <div class="card-body border-color">
+                        <h5 class="card-title text-center">Message</h5>
+                        <form action="send-message.php" method="POST">
+                            <div class="form-group">
+                                <input name="username" type="text" class="form-control rounded el-pepe" placeholder="Username" autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" class="form-control mt-2 el-pepe" id="message-text-area" rows="4" placeholder="Type your message here..." style="resize: none;" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-warning rounded-pill">Send</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- END Messages -->
+            </div>
         </div>
     </div>
 
-    <!-- END Messages -->
-
     <!-- Bootstrap scripts Ver 4.5 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
-        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 </body>
 
-</html>
+</html> 

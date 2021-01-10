@@ -1,3 +1,10 @@
+<?php 
+	session_start();
+
+	$email = $_SESSION['Email'];
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +27,7 @@
 
     <body>
 
-        <!-- BEGIN Navigation Bar -->
+         <!-- BEGIN Navigation Bar -->
         <nav class="navbar navbar-dark bg-dark sticky-top navbar-expand-lg">
             <a class="AppLogo navbar-brand" href="main.php">TeeLayLay</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,86 +59,79 @@
             </div>
         </nav>
         <!-- END Navigation Bar -->
+		
+		<?php
+				
+		if($_SERVER['REQUEST_METHOD'] =='POST' ){
+			
+		$uname = $_POST["username"];
 
-        <!-- BEGIN New post creation -->
-        <div class="new-post-area">
-            <div class="col d-flex justify-content-center">
-                <div class="card mt-3" style="width: 40rem;">
-                    <div class="border rounded">
-                        <div class="card-header text-center"><h3>Update your status</h3></div>
-                        <div class="card-body">
-                            <form class="" action="create-new-post.php" method="POST">
-                                <div class="form-group">
-                                    <textarea name="Content" class="el-pepe form-control" cols="75" rows="2" maxlength="150" required style="resize: none;"></textarea>
-                                </div>
-                                <button class="btn btn-warning mt-3 rounded-pill" type="submit">Post</button>
-                            </form>
+        require 'connect.php';
+
+        mysqli_set_charset($conn, "utf8");
+
+        $sqlJustSearch= "SELECT FirstName, LastName FROM Users,LoginCredentials,UsersContactDetails WHERE Users.ID = LoginCredentials.ID AND Users.ID = UsersContactDetails.ID AND LoginCredentials.Username = '$uname' AND UsersContactDetails.EMAIL <> '$email'";
+
+		$sqlFollowing= "SELECT FirstName, LastName, Following FROM Users,Follows WHERE Users.ID = USER2 and Users.ID = USER2 AND USER1 = (SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = '$email') AND USER2 = (SELECT Users.ID FROM Users,LoginCredentials WHERE Users.ID = LoginCredentials.ID AND LoginCredentials.Username = '$uname') AND Following = 'yes'";
+			
+        $result1 = mysqli_query($conn,$sqlJustSearch);
+		$result2 = mysqli_query($conn,$sqlFollowing);
+		
+        if(mysqli_num_rows($result2) === 1){
+
+           $row = mysqli_fetch_assoc($result2);
+			$_SESSION['uname'] = $uname;
+            ?>
+		
+			<div class="col d-flex justify-content-center">
+                <div class="card" style="width: 40rem;">
+                    <div class="border">
+                        <div class="card-body form-inline">
+                            <p class="card-text"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></p>
+                            <a id="Unfollow" onclick="unfollow()" href="unfollow.php" class="btn btn-warning rounded-pill ml-auto">Unfollow</a>
                         </div>
                     </div>
-                </div>  
-            </div>
-        </div>
-        <!-- END New post creation -->
-        <?php
-
-session_start();
-
-$email = $_SESSION['Email'];
-    
-    require 'connect.php';
-
-    mysqli_set_charset($conn, "utf8");
-
-    $sql= "SELECT DISTINCT FirstName,LastName,CreationDate,Content FROM Users,Posts,Follows WHERE (Users.ID = Posts.UserID AND UserID =(SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = '$email')) OR ( Users.ID = Posts.UserID AND Follows.USER1 = (SELECT Users.ID FROM Users,UsersContactDetails WHERE Users.ID = UsersContactDetails.ID AND UsersContactDetails.EMAIL = '$email') AND Follows.USER2 = Users.ID AND Follows.Following = 'yes' )";
-
-    $result = mysqli_query($conn,$sql);
-
-    if(mysqli_num_rows($result) > 0){
-
-        while($row = mysqli_fetch_assoc($result)){
-
-        ?>
-
-       <!-- BEGIN Posts -->
-    <div class="post-area">
-        <div class="col d-flex justify-content-center">
-            <div class="card mt-4 " style="width: 40rem;">
-                <div class="border rounded">
-                    <div id="username" class="card-header"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></div>
-                    <div class="card-body">
-                        <p class="card-text"><?php echo  $row['Content']; ?></p>
-                    </div>
-                    <div id="post-created" class="card-footer text-muted"><?php echo $row['CreationDate']; ?></div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- END Posts-->
-        
+		
+		 	<?php
+		} else if(mysqli_num_rows($result1) === 1){
+
+        $row = mysqli_fetch_assoc($result1);
+		$_SESSION['uname'] = $uname;
+        ?>
+                <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 40rem;">
+                        <div class="border">
+                            <div class="card-body form-inline">
+                                <p class="card-text"><?php echo $row['FirstName'] . " " . $row['LastName']; ?></p>
+                                <a id="Follow" onclick="follow()" href="follow.php" class="btn btn-warning rounded-pill ml-auto">follow</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         <?php
         }
-            
 
-        } else {
-        
-
-			?>
-			<div class="alert alert-light text-center" role="alert">
-  				There are no posts at the moment!
-			</div>
-			<?php
-        
-        }
-
-        mysqli_close($conn);
-
-?>
-		
+		mysqli_close($conn);
+	}
+   	?>
 		
         <!-- Bootstrap scripts Ver 4.5 -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    
+        <script>
+            function follow() {
+                document.getElementById("Unfollow").textContent="Follow";
+            } 
+			
+			function unfollow() {
+                document.getElementById("follow").textContent="Unfollow";
+            } 
+			
+        </script>
     </body>
 
 </html>

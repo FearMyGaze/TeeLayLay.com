@@ -20,6 +20,61 @@
         <title>TeeLayLay</title>
     </head>
     <body>
+		
+		<?php
+
+            if (isset($_GET["newpwd"])) {
+                if ($_GET["newpwd"]=="success") {
+					?>
+					<div class="alert alert-success text-center"  role="alert">
+ 					 Your password has been reset successfully!
+					</div>
+					<?php
+                }
+            }
+		
+			if (isset($_GET["reset"])) {
+       		 if ($_GET["reset"]=="success") {
+					?>
+            		<div class="alert alert-success text-center" role="alert">
+  						Verification email has been sent to your address!
+					</div>
+					<?php
+        		}
+    		}
+		
+			if (isset($_GET["reset"])) {
+       		 if ($_GET["reset"]=="failed") {
+					?>
+            		<div class="alert alert-danger text-center" role="alert">
+  						Destination email is missing!
+					</div>
+					<?php
+        		}
+    		}
+		
+			if (isset($_GET["pwdchanged"])) {
+       		 	if ($_GET["pwdchanged"]=="true") {
+					?>
+            			<div class="alert alert-success text-center" role="alert">
+  							Your password has been reset!
+						</div>
+					<?php
+        		}
+    		}
+			
+			if (isset($_GET["login"])) {
+       		 	if ($_GET["login"]=="no") {
+					?>
+            			<div class="alert alert-danger text-center" role="alert">
+  							Account does not exist or login credentials are wrong!
+						</div>
+					<?php
+        		}
+    		}
+        
+        ?>
+
 
         <!-- Login Form -->
         <div id="Login" class="Login">
@@ -74,6 +129,9 @@
                     <div class="form-group">
                         <input name="birthday" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')" class="form-control rounded-pill form-control-lg" placeholder="Birthday" autocomplete="off" required>
                     </div>
+					<div class="form-group">
+                        <input name="username" type="text" class="form-control rounded-pill form-control-lg" placeholder="Username" autocomplete="off" required>
+                    </div>
                     <div class="form-group">
                         <input name="email" type="email" class="form-control rounded-pill form-control-lg" placeholder="Email Address" autocomplete="off" required>
                     </div>
@@ -100,15 +158,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-        <?php
-
-            if (isset($_GET["newpwd"])) {
-                if ($_GET["newpwd"]=="success") {
-                    echo '<p class="signupsuccess">O KWDIKOS ALLAXE!</p>';
-                }
-            }
         
-        ?>
     </body>
 
 </html>
